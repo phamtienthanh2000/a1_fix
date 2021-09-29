@@ -27,4 +27,11 @@ public class Helicopter extends Airplane {
 		System.out.println("Rotated Wing");
 	}
 
+	@Override
+	public String toString() {
+		return "Helicopter [range=" + range + ", getID()=" + getID() + ", getModel()=" + getModel()
+				+ ", getCruiseSpeed()=" + getCruiseSpeed() + ", getEmptyWeight()=" + getEmptyWeight()
+				+ ", getMaxTakeoffWeight()=" + getMaxTakeoffWeight() + ", isParticipated()=" + isParticipated() + "]";
+	}
+
 }

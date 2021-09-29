@@ -35,14 +35,7 @@ public class AirportServiceImplement implements AirportService {
 //			System.out.println(ap);
 //		}
 //		Scanner scanner = new Scanner(System.in);
-//		System.out.println("Enter airport name");
-//		String airportName = scanner.nextLine();
-//		System.out.println("Enter airport runway size");
-//		float runwaySize = Float.parseFloat(scanner.nextLine());
-//		System.out.println("Enter number of fixed wing slot ");
-//		int fixedWingSlot = Integer.parseInt(scanner.nextLine());
-//		System.out.println("Enter number of Helicopter slot ");
-//		int helicopterSlot = Integer.parseInt(scanner.nextLine());
+
 //
 //		Airport airport = new Airport(airportName, runwaySize, fixedWingSlot, helicopterSlot);
 		String lastID = null;
@@ -70,10 +63,6 @@ public class AirportServiceImplement implements AirportService {
 
 	}
 
-	/**
-	 * ĐOẠN NÀY EM CHƯA LÀM ĐƯỢC Ạ
-	 * 
-	 */
 	@Override
 	public void addFixedWing(FixedWing fixedWing, Airport airport) throws Exception {
 
@@ -85,10 +74,10 @@ public class AirportServiceImplement implements AirportService {
 
 		// tìm fixedWing trong các fixed wing lấy từ file
 		FixedWing chosenFixedWing = null;
-		for (FixedWing f : this.fixedWings) {
-			if (f.getID().equals(fixedWing.getID())) {
-				f = fixedWing;
-				chosenFixedWing = f;
+		for (int i = 0; i < this.fixedWings.size(); i++) {
+			if (this.fixedWings.get(i).getID().equals(fixedWing.getID())) {
+				fixedWings.set(i, fixedWing);
+				chosenFixedWing = fixedWings.get(i);
 				break;
 			}
 
@@ -96,35 +85,33 @@ public class AirportServiceImplement implements AirportService {
 
 		// tìm airport trong các airport lấy từ file
 		Airport chosenAirport = null;
-		for (Airport a : this.airports) {
+		for (int i = 0; i < this.airports.size(); i++) {
 			// System.out.println(a);
-			if (a.getID().equals(airport.getID())) {
-				a = airport;
-				chosenAirport = a;
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
 				// đoạn này em check xem 2 biến a với choseAirport có reference đến cùng 1
 				// object không , nó return true
-				System.out.println(a == chosenAirport);
+				// System.out.println(a == chosenAirport);
 				break;
 			}
 
 		}
 		// đến đoạn này em check lại thì nó lại ko reference đến cùng một object nữa
-		for (Airport a : this.airports) {
-			System.out.println(a.getID());
-			System.out.println(chosenAirport.getID());
-			if (a == chosenAirport) {
-
-				System.out.println("Choose correct");
-			} else {
-				System.out.println("Not choose");
-			}
-		}
+//		for (Airport a : this.airports) {
+//			System.out.println(a.getID());
+//			System.out.println(chosenAirport.getID());
+//			if (a == chosenAirport) {
+//
+//				System.out.println("Choose correct");
+//			} else {
+//				System.out.println("Not choose");
+//			}
+//		}
 
 		chosenAirport.getFixedWingIDs().add(chosenFixedWing.getID());
-		System.out.println(chosenAirport);
-		chosenFixedWing.setParticipate(true);
-		System.out.println(chosenFixedWing);
 
+		chosenFixedWing.setParticipate(true);
 		FileIO.writeToFile(airports, FILE_NAME);
 		FileIO.writeToFile(fixedWings, FixedWingService.FILE_NAME);
 
@@ -139,19 +126,19 @@ public class AirportServiceImplement implements AirportService {
 		}
 
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
 
 			}
 
 		}
 
-		for (FixedWing fx : this.fixedWings) {
+		for (int i = 0; i < this.fixedWings.size(); i++) {
 			for (FixedWing addFixedWing : fixedWings) {
-				if (fx.getID().equals(addFixedWing.getID())) {
-					fx = addFixedWing;
+				if (this.fixedWings.get(i).getID().equals(addFixedWing.getID())) {
+					this.fixedWings.set(i, addFixedWing);
 					break;
 
 				}
@@ -172,28 +159,30 @@ public class AirportServiceImplement implements AirportService {
 	@Override
 	public void removeFixedWing(FixedWing fixedWing, Airport airport) {
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
+				break;
 
 			}
 
 		}
 
 		FixedWing chosenFixedWing = null;
-		for (FixedWing fx : this.fixedWings) {
-			if (fx.getID().equals(fixedWing.getID())) {
-				fx = fixedWing;
-				chosenFixedWing = fx;
+		for (int i = 0; i < this.fixedWings.size(); i++) {
+			if (fixedWings.get(i).getID().equals(fixedWing.getID())) {
+				fixedWings.set(i, fixedWing);
+				chosenFixedWing = fixedWings.get(i);
 				break;
 			}
 
 		}
 
-		for (int i = 0; i < airport.getFixedWingIDs().size(); i++) {
-			String id = airport.getFixedWingIDs().get(i);
+		for (int i = 0; i < chosenAirport.getFixedWingIDs().size(); i++) {
+			String id = chosenAirport.getFixedWingIDs().get(i);
 			if (chosenFixedWing.getID().equals(id)) {
-				airport.getFixedWingIDs().remove(id);
+				chosenAirport.getFixedWingIDs().remove(id);
 				chosenFixedWing.setParticipate(false);
 				break;
 			}
@@ -205,21 +194,22 @@ public class AirportServiceImplement implements AirportService {
 	}
 
 	@Override
-	public void removeFixedWing(List<FixedWing> fixedWing, Airport airport) {
+	public void removeFixedWing(List<FixedWing> removeFixedWings, Airport airport) {
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+
+				chosenAirport = this.airports.get(i);
 				break;
 			}
 
 		}
 
-		for (FixedWing fx : this.fixedWings) {
-			for (FixedWing removeFixedWing : fixedWing) {
-				if (fx.getID().equals(removeFixedWing.getID())) {
-					fx = removeFixedWing;
+		for (int i = 0; i < this.fixedWings.size(); i++) {
+			for (FixedWing removeFixedWing : removeFixedWings) {
+				if (this.fixedWings.get(i).getID().equals(removeFixedWing.getID())) {
+					this.fixedWings.set(i, removeFixedWing);
 					break;
 
 				}
@@ -228,14 +218,14 @@ public class AirportServiceImplement implements AirportService {
 
 		}
 
-		for (int i = 0; i < fixedWing.size(); i++) {
-			String id = fixedWing.get(i).getID();
+		for (int i = 0; i < removeFixedWings.size(); i++) {
+			String id = removeFixedWings.get(i).getID();
 			chosenAirport.getFixedWingIDs().remove(id);
-			fixedWing.get(i).setParticipate(false);
+			removeFixedWings.get(i).setParticipate(false);
 
 		}
 		FileIO.writeToFile(airports, FILE_NAME);
-		FileIO.writeToFile(fixedWings, FixedWingService.FILE_NAME);
+		FileIO.writeToFile(this.fixedWings, FixedWingService.FILE_NAME);
 
 	}
 
@@ -246,18 +236,19 @@ public class AirportServiceImplement implements AirportService {
 		}
 
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
-
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
+				break;
 			}
 		}
 		Helicopter chosenHelicopter = null;
-		for (Helicopter addhelicopter : this.helicopters) {
-			if (addhelicopter.getID().equals(helicopter.getID())) {
-				addhelicopter = helicopter;
-				chosenHelicopter = addhelicopter;
+		for (int i = 0; i < this.helicopters.size(); i++) {
+			if (this.helicopters.get(i).getID().equals(helicopter.getID())) {
+				this.helicopters.set(i, helicopter);
+				chosenHelicopter = this.helicopters.get(i);
+				break;
 			}
 		}
 
@@ -266,58 +257,63 @@ public class AirportServiceImplement implements AirportService {
 
 		FileIO.writeToFile(airports, FILE_NAME);
 		FileIO.writeToFile(helicopters, HelicopterService.FILE_NAME);
+		System.out.println("add helicopter finished");
 
 	}
 
 	@Override
-	public void addHelicopter(List<Helicopter> helicopters, Airport airport) throws Exception {
-		if (!BusinessRule.validateAddFixedWingToAirport(fixedWings, airport)) {
+	public void addHelicopter(List<Helicopter> addHelicopters, Airport airport) throws Exception {
+		if (!BusinessRule.validateAddHelicopterToAirport(addHelicopters, airport)) {
 			return;
 		}
 
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
+				break;
 			}
 		}
 
-		for (Helicopter helicopter : this.helicopters) {
-			for (Helicopter addHelicopter : helicopters) {
-				if (helicopter.getID().equals(addHelicopter.getID())) {
-					helicopter = addHelicopter;
+		for (int i = 0; i < this.helicopters.size(); i++) {
+			for (Helicopter addHelicopter : addHelicopters) {
+				if (this.helicopters.get(i).getID().equals(addHelicopter.getID())) {
+					this.helicopters.set(i, addHelicopter);
+
 					break;
 				}
 			}
 
 		}
 
-		for (Helicopter addHelicopter : helicopters) {
+		for (Helicopter addHelicopter : addHelicopters) {
 			chosenAirport.getHelicopterIDs().add(addHelicopter.getID());
 			addHelicopter.setParticipate(true);
 		}
 
 		FileIO.writeToFile(airports, FILE_NAME);
 		FileIO.writeToFile(this.helicopters, HelicopterService.FILE_NAME);
+		System.out.println("Add helicopters finished");
 	}
 
 	@Override
-	public void removeHelicopter(Helicopter helicopter, Airport airport) {
+	public void removeHelicopter(Helicopter removeHelicopter, Airport airport) {
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
 			}
 
 		}
 
 		Helicopter chosenHelicopter = null;
-		for (Helicopter removeHelicopter : this.helicopters) {
-			if (removeHelicopter.getID().equals(helicopter.getID())) {
-				removeHelicopter = helicopter;
-				chosenHelicopter = removeHelicopter;
+		for (int i = 0; i < this.helicopters.size(); i++) {
+			if (this.helicopters.get(i).getID().equals(removeHelicopter.getID())) {
+				this.helicopters.set(i, removeHelicopter);
+				chosenHelicopter = this.helicopters.get(i);
+				break;
 			}
 		}
 
@@ -332,26 +328,28 @@ public class AirportServiceImplement implements AirportService {
 		chosenHelicopter.setParticipate(false);
 		FileIO.writeToFile(airports, FILE_NAME);
 		FileIO.writeToFile(this.helicopters, HelicopterService.FILE_NAME);
+		System.out.println("Remove helicopter finished");
 
 	}
 
 	@Override
-	public void removeHelicopter(List<Helicopter> helicopters, Airport airport) {
+	public void removeHelicopter(List<Helicopter> removeHelicopters, Airport airport) {
 		Airport chosenAirport = null;
-		for (Airport ap : this.airports) {
-			if (ap.getID().equals(airport.getID())) {
-				ap = airport;
-				chosenAirport = ap;
+		for (int i = 0; i < this.airports.size(); i++) {
+			if (this.airports.get(i).getID().equals(airport.getID())) {
+				this.airports.set(i, airport);
+				chosenAirport = this.airports.get(i);
 				break;
 
 			}
 
 		}
 
-		for (Helicopter h : this.helicopters) {
-			for (Helicopter removeHelicopter : helicopters) {
-				if (h.getID().equals(removeHelicopter.getID())) {
-					h = removeHelicopter;
+		for (int i = 0; i < this.helicopters.size(); i++) {
+			for (Helicopter removeHelicopter : removeHelicopters) {
+				if (this.helicopters.get(i).getID().equals(removeHelicopter.getID())) {
+					this.helicopters.set(i, removeHelicopter);
+
 					break;
 				}
 
@@ -359,13 +357,14 @@ public class AirportServiceImplement implements AirportService {
 
 		}
 
-		for (int i = 0; i < helicopters.size(); i++) {
-			String removeID = helicopters.get(i).getID();
+		for (int i = 0; i < removeHelicopters.size(); i++) {
+			String removeID = removeHelicopters.get(i).getID();
 			chosenAirport.getHelicopterIDs().remove(removeID);
-			helicopters.get(i).setParticipate(false);
+			removeHelicopters.get(i).setParticipate(false);
 		}
 		FileIO.writeToFile(airports, FILE_NAME);
 		FileIO.writeToFile(this.helicopters, HelicopterService.FILE_NAME);
+		System.out.println("Remove helicopters finished");
 
 	}
 

@@ -34,4 +34,13 @@ public class FixedWing extends Airplane {
 
 	}
 
+	@Override
+	public String toString() {
+		return "FixedWing [planeType=" + planeType + ", minNeededRunwaySize=" + minNeededRunwaySize + ", PlaneType()="
+				+ getPlaneType() + ", MinNeededRunwaySize()=" + getMinNeededRunwaySize() + ", ID()=" + getID()
+				+ ", Model()=" + getModel() + ", CruiseSpeed()=" + getCruiseSpeed() + ", EmptyWeight()="
+				+ getEmptyWeight() + ", MaxTakeoffWeight()=" + getMaxTakeoffWeight() + ", isParticipated()="
+				+ isParticipated() + "]";
+	}
+
 }

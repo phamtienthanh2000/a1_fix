@@ -16,7 +16,7 @@ public class FixedWingServiceImplement implements FixedWingService {
 	}
 
 	@Override
-	public void create(FixedWing fixedWing) {
+	public void create(FixedWing fixedWing) throws Exception {
 
 		String lastID = null;
 		if (this.fixedWings.size() != 0) {
@@ -27,6 +27,10 @@ public class FixedWingServiceImplement implements FixedWingService {
 
 		} else {
 			lastID = "FX10000";
+		}
+
+		if (!BusinessRule.validateModelSize(fixedWing.getModel())) {
+			throw new Exception("model size > 40 charracters");
 		}
 		fixedWing.setID(lastID);
 		fixedWings.add(fixedWing);
@@ -50,10 +54,11 @@ public class FixedWingServiceImplement implements FixedWingService {
 		}
 
 		FixedWing chosenFixedWing = null;
-		for (FixedWing fx : this.fixedWings) {
-			if (fx.getID().equals(fixedWing.getID())) {
-				fx = fixedWing;
-				chosenFixedWing = fx;
+		for (int i = 0; i < this.fixedWings.size(); i++) {
+			if (this.fixedWings.get(i).getID().equals(fixedWing.getID())) {
+				this.fixedWings.set(i, fixedWing);
+
+				chosenFixedWing = this.fixedWings.get(i);
 				break;
 			}
 
@@ -61,7 +66,8 @@ public class FixedWingServiceImplement implements FixedWingService {
 		chosenFixedWing.setPlaneType(type);
 		chosenFixedWing.setMinNeededRunwaySize(runwaySize);
 
-		FileIO.writeToFile(this.fixedWings, this.FILE_NAME);
+		FileIO.writeToFile(this.fixedWings, FILE_NAME);
+		System.out.println("Change fixed wing type and min runway size finished");
 
 	}
 

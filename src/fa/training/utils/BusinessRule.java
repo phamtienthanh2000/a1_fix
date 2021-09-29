@@ -32,7 +32,7 @@ public class BusinessRule<E> {
 	public static boolean validateAddFixedWingToAirport(List<FixedWing> fixedWings, Airport airport) throws Exception {
 		boolean result = false;
 		int availableSlot = airport.getMaxFixedWingParkingPlace() - airport.getFixedWingIDs().size();
-		if (availableSlot < airport.getMaxFixedWingParkingPlace()) {
+		if (availableSlot < fixedWings.size()) {
 			throw new Exception("Not enough place for fixed wings ");
 		}
 		for (FixedWing fx : fixedWings) {
@@ -96,12 +96,14 @@ public class BusinessRule<E> {
 						if (airport.getRunwaySize() < runwaySize) {
 							throw new Exception("update fixed wing runway size exceed airport runway size ");
 						}
+						break;
 					}
 				}
 
 			}
 
 		}
+		result = true;
 
 		return result;
 
@@ -118,7 +120,7 @@ public class BusinessRule<E> {
 //	}
 
 	public static boolean validateModelSize(String modelSize) {
-		return false;
+		return modelSize.length() <= 40;
 	}
 
 	public static boolean validateFixedWingType(String type) {
@@ -131,8 +133,8 @@ public class BusinessRule<E> {
 		return false;
 	}
 
-	public boolean validateTakeoffWeight(float takeoffWeight, float emptyWeight) {
+	public static boolean validateHelicopterTakeoffWeight(Helicopter helicopter) {
 
-		return false;
+		return helicopter.getMaxTakeoffWeight() <= (1.5) * helicopter.getEmptyWeight();
 	}
 }

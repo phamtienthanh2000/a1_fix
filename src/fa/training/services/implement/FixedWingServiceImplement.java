@@ -26,7 +26,7 @@ public class FixedWingServiceImplement implements FixedWingService {
 			lastID = lastID.substring(0, 2) + (number + 1);
 
 		} else {
-			lastID = "FX10000";
+			lastID = "FW10000";
 		}
 
 		if (!BusinessRule.validateModelSize(fixedWing.getModel())) {

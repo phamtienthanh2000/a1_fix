@@ -54,7 +54,7 @@ public abstract class Airplane implements Serializable {
 		return maxTakeoffWeight;
 	}
 
-	public void setMaxTakeoffWeight(float maxTakeoffWeight) {
+	public void setMaxTakeoffWeight(float maxTakeoffWeight) throws Exception {
 		this.maxTakeoffWeight = maxTakeoffWeight;
 	}
 
@@ -66,7 +66,7 @@ public abstract class Airplane implements Serializable {
 		this.isParticipated = isParticipate;
 	}
 
-	abstract void fly();
+	abstract public void fly();
 
 	@Override
 	public String toString() {

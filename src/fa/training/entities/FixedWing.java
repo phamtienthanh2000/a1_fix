@@ -8,7 +8,7 @@ public class FixedWing extends Airplane {
 	/**
 	 * 
 	 */
-//	private static final long serialVersionUID = 1L;
+	//	private static final long serialVersionUID = 1L;
 	private String planeType;
 	private float minNeededRunwaySize;
 
@@ -16,8 +16,19 @@ public class FixedWing extends Airplane {
 		return planeType;
 	}
 
-	public void setPlaneType(String planeType) {
+	public void setPlaneType(String planeType) throws Exception {
+		if (!validatePlaneType(planeType)) {
+			throw new Exception("In valid plane type");
+		}
 		this.planeType = planeType;
+	}
+
+	private boolean validatePlaneType(String planeType2) {
+		boolean result = false;
+		if (planeType2.equals("CAG") || planeType2.equals("LGR") || planeType2.equals("PRV")) {
+			result = true;
+		}
+		return result;
 	}
 
 	public float getMinNeededRunwaySize() {
@@ -29,7 +40,7 @@ public class FixedWing extends Airplane {
 	}
 
 	@Override
-	void fly() {
+	public void fly() {
 		System.out.println("Fixed Wing");
 
 	}

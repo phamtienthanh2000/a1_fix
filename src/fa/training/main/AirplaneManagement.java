@@ -305,7 +305,7 @@ public class AirplaneManagement {
 					airportService.addHelicopter(addHelicopter, addHelicopterAirport);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println(e1.getMessage());
 				}
 				break;
 			case 9:
@@ -343,7 +343,7 @@ public class AirplaneManagement {
 					airportService.addHelicopter(addHelicopters, addHelicoptersAirport);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println(e1.getMessage());
 				}
 
 				break;
